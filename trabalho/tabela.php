@@ -4,9 +4,9 @@ $tabela = $_POST;
 
 unset($tabela["children"], $tabela["nome"], $tabela["idade"]);
 
-$number= count($tabela)-(count($tabela) /2);
-
- $i=1;
+$number= count($tabela) /2;
+ $k=0;   
+ $i=0;
 ?>
 <DOCTYPE html>
 <html lang="pt-br">
@@ -33,16 +33,31 @@ $number= count($tabela)-(count($tabela) /2);
                     <tr>
                         <td class="row"><?php echo $_POST["nome"]?></td>
                         <td class="idade"><?php echo $_POST["idade"] ?></td>
-                        <td class="row"><?php if(isset($tabela["name-0"])){echo $tabela["name-0"]." - ".$tabela["idade-0"]." anos";}
-                        else{echo "Não possui filhos";}?></td>
+                            <?php
+                            while($k<=$number){
+                                if(count($tabela)!= 0){
+                                    if(isset($tabela["name-$k"])){
+                                    echo "<td>".$tabela["name-$k"]." - ".$tabela["idade-$k"]." anos";
+                                    break;
+                                    }
+                                }else{
+                                    echo "<td class='row'>Não possui filhos</td>";
+                                }
+                                $k++;
+                            } $i=$k+1;
+                        ?>
                     </tr>
-                    <?php while($i<$number){?>
-                    <tr>
-                        <td class="row">&nbsp;</td>
-                        <td class="idade">&nbsp;</td>
-                        <td class="row"><?php echo $tabela["name-$i"]." - ".$tabela["idade-$i"]." anos";?></td>
-                    </tr>
-                    <?php $i++; }?>
+                    <?php while($i<=$number){
+                            if(isset($tabela["name-$i"])){
+                                echo "<tr>";
+                                echo "<td class='row'>&nbsp;</td>";
+                                echo "<td class='idade'>&nbsp;</td>";
+                                echo "<td class='row'>".$tabela["name-$i"]." - ".$tabela["idade-$i"]." anos";
+                                echo "</tr>";
+                            }
+                            $i++;
+                        } 
+                    ?>
                 </tbody>
             </table>
         </div>     
